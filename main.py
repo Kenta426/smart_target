@@ -29,12 +29,16 @@ while not done:
 
     screen.blit(background, (0,0))
 
+
     gen.run()
+    success = gen.count_success1()
+    success2 = gen.count_success2()
     if gen.is_dead():
         result = gen.evaluate()
         new_board = board.reset()
         new_target = target.reset()
         new_gene = gen.natural_selection()
+
         gen = Generation(NUM, new_board, screen, new_target, new_gene)
         gen.set_mutation(MUTATION)
         count += 1
@@ -43,18 +47,20 @@ while not done:
         if max_fit < temp_fit:
             max_fit = temp_fit
 
-    myfont = pygame.font.SysFont("Helvetica", 18)
-    myfont2 = pygame.font.SysFont("Helvetica", 18)
-    myfont3 = pygame.font.SysFont("Helvetica", 18)
-
+    myfont = pygame.font.SysFont("Helvetica", 15)
     # render text
     generation = myfont.render("Generation: " + str(count), 1, (255,255,255))
-    fit = myfont2.render("Max fitness: " + str(max_fit), 1, (255,255,255))
-    mutation = myfont2.render("Mutation Rate: " + str(MUTATION), 1, (255,255,255))
+    fit = myfont.render("Max fitness: " + str(max_fit), 1, (255,255,255))
+    mutation = myfont.render("Mutation Rate: " + str(MUTATION), 1, (255,255,255))
+    suc1 = myfont.render("Board: " + str(success), 1, (255,255,255))
+    suc2 = myfont.render("Target: " + str(success2), 1, (255,255,255))
+
 
     screen.blit(generation, (10, 10))
-    screen.blit(fit, (10, 40))
-    screen.blit(mutation, (10, 70))
+    screen.blit(fit, (10, 35))
+    screen.blit(mutation, (10, 60))
+    screen.blit(suc1, (10, 85))
+    screen.blit(suc2, (10, 110))
 
     board.draw(screen)
     target.draw(screen)
