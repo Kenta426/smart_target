@@ -18,11 +18,10 @@ class Target:
             color = (255, 255, 255)
 
         pygame.draw.rect(screen, color, [self.pos[0], self.pos[1], TARGET_WIDTH, TARGET_HEIGHT])
-
-
+    
     def check_hit(self, b):
         if ((b.pos[0] > self.pos[0] and b.pos[0] < self.pos[0] + TARGET_WIDTH)
-        and (b.pos[1] + b.radius > self.pos[1])):
+        and (b.pos[1] + b.radius > self.pos[1]) and (b.pos[1] + b.radius < 600)):
             if b.board_hit:
                 self.hit = True
                 b.target_hit = True

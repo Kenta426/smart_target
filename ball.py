@@ -21,12 +21,6 @@ class Gene:
         self.vx = float(random.randint(-5,20))
         self.vy = float(random.randint(-40,0))
 
-    @classmethod
-    def modified(cls,mass,vx,vy):
-        self.mass = mass
-        self.vx = vx
-        self.vy = vy
-
 class Ball:
 
     gravity = (0,0.3)
@@ -39,8 +33,6 @@ class Ball:
         self.pos = (50,550)
         self.life = 255
         self.color = (255,100,0)
-        # self.prev_vy = vy
-        # self.count = 0
         self.board_hit = False
         self.target_hit = False
         self.dist_board = 1000
@@ -115,6 +107,7 @@ class Generation:
         self.target = target
         self.results = []
         self.mutation = 0
+        self.mutated = 0
         self.genes = genes
         if self.genes == []:
             for i in range(num):
@@ -154,6 +147,7 @@ class Generation:
         check1 = random.random()
         if check1 < self.mutation:
             modified = Gene()
+            self.mutated += 1
         else:
             random.seed()
             check2 = random.random()
@@ -184,6 +178,7 @@ class Generation:
 
     ''' natural_selection() will return list of new genes '''
     def natural_selection(self):
+        self.mutated = 0
         fitness = self.evaluate()
         fix_fitness = [x+0.0001 for x in fitness]
         sum_fit = sum(fix_fitness)
@@ -207,7 +202,7 @@ class Generation:
         for i in range(len(self.balls)-1):
             gene = self.cross_over(rand_index[0], rand_index[1])
             genes.append(gene)
-            print(gene.mass, gene.vx, gene.vy)
+            # print(gene.mass, gene.vx, gene.vy)
         genes.append(best_gene)
         return genes
 

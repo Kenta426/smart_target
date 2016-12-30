@@ -3,7 +3,7 @@ from ball import *
 from board import *
 from target import *
 
-NUM = 10
+NUM = 15
 MUTATION = 0.2
 
 pygame.init()
@@ -22,6 +22,7 @@ gen.set_mutation(MUTATION)
 
 count = 0
 max_fit = 0
+mutation_rate = 0
 while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -33,12 +34,13 @@ while not done:
     gen.run()
     success = gen.count_success1()
     success2 = gen.count_success2()
+
     if gen.is_dead():
         result = gen.evaluate()
         new_board = board.reset()
         new_target = target.reset()
         new_gene = gen.natural_selection()
-
+        mutation_rate = float(gen.mutated) / NUM
         gen = Generation(NUM, new_board, screen, new_target, new_gene)
         gen.set_mutation(MUTATION)
         count += 1
@@ -51,7 +53,7 @@ while not done:
     # render text
     generation = myfont.render("Generation: " + str(count), 1, (255,255,255))
     fit = myfont.render("Max fitness: " + str(max_fit), 1, (255,255,255))
-    mutation = myfont.render("Mutation Rate: " + str(MUTATION), 1, (255,255,255))
+    mutation = myfont.render("Mutation Rate: " + str(mutation_rate), 1, (255,255,255))
     suc1 = myfont.render("Board: " + str(success), 1, (255,255,255))
     suc2 = myfont.render("Target: " + str(success2), 1, (255,255,255))
 
