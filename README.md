@@ -2,7 +2,6 @@
 
 Simple genetic algorithm project
 
-<<<<<<< HEAD
 ![](image/screenshot.jpg)
 
 ##Background
@@ -10,8 +9,14 @@ I was inspired to try out genetic algorithm by myself after watching this [video
 
 For this project, this [website](http://www.blprnt.com/smartrockets/) and this [tutorial](https://www.youtube.com/watch?v=bGz7mv2vD6g) were very helpful.
 
+
+
 ##Objective
-Shoot balls from the launcher (bottom left corner in the image) and try to hit 2 randomly generated targets.
+Shoot balls from the launcher (bottom left corner in the image) and try to hit 2 randomly generated targets. The ball will bounce off the first target vertically drawn in the 1st quadrant, and try to hit the second target which is draw horizontally in the 3rd quadrant.
+
+>![](image/target.jpg)
+
+
 
 ##Design
 Gene includes three information:
@@ -20,6 +25,30 @@ Gene includes three information:
 * The initial y velocity
 
 Therefore the gene is represented by a vector of length 3, and store type float value in each element.
-=======
-![Screen Shot](image/screenshot.jpg)
->>>>>>> 56a364abd779506364070cad58c2cdadd3b39a9c
+
+Each generation is a sequence of gene (in default, it is 15)
+>![](image/gene.jpg)
+
+
+
+
+
+##Fitness Function
+Here is a pseudo code for the fitness function for this project
+
+```
+if the ball does not hit the first target:
+  fitness = 1 / distance_from_target1
+elif the ball does not hit the second target:
+  fitness = 1 + 1 / distance_from_target2
+else:
+  fitness = 2
+```
+
+As shown above, the fitness is 0 - 1 if it does not hit the first
+##Natural Selection
+Usually genes in genetic algorithm are far more complex than the list with the length of 3. Thus, I ran into the issue by the lack of diversity in early generation, meaning, after a few iterations, all value in genes converge to same value and stopped evolving. In order to increase variety in each generation, I took following steps.
+
+####Step 1
+After each generation, evaluate
+####Step 2
