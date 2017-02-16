@@ -1,5 +1,4 @@
 #Smart Target
-
 Simple genetic algorithm project
 
 ![](image/screenshot.jpg)
